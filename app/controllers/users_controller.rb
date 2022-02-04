@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     user = User.create!(user_params)
     auth_token = AuthenticateUser.new(user.email, user.password).call
     response = { message: Message.account_created, auth_token: auth_token }
-    render :json => response
+    render json: response
     # json_response(response, :created)
   end
 
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     params.permit(
       :username,
       :email,
-      :password,
+      :password
     )
   end
 end
