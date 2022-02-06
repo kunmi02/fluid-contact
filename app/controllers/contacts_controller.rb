@@ -1,37 +1,42 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: %i[show update destroy]
 
-  # GET /todos
+  # GET /contacts
   def index
-    # @contacts = Contact.all
-    # json_response(@contacts)
     @contacts = current_user.contacts
     json_response(@contacts)
   end
 
-  # POST /todos
+  # POST /contacts
   def create
-    # @contact = Contact.create!(contact_params)
-    # json_response(@contact, :created)
     @contact = current_user.contacts.create!(contact_params)
     json_response(@contact, :created)
   end
 
-  # GET /todos/:id
+  # GET /contacts/:id
   def show
     json_response(@contact)
   end
 
-  # PUT /todos/:id
+  # PUT /contacts/:id
   def update
     @contact.update(contact_params)
     head :no_content
   end
 
-  # DELETE /todos/:id
+  # DELETE /contacts/:id
   def destroy
     @contact.destroy
     head :no_content
+  end
+
+  def star_contact
+    @contact.update('starred=?', params[:star])
+  end
+
+  def starred
+    @starred_contact = current_user.contacts.where('starred=?', true)
+    json_response(@starred_contact)
   end
 
   private

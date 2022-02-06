@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Contacts API', type: :request do
   # initialize test data
-  # add contqct owner owner
+  # add contact owner owner
   let(:user) { create(:user) }
   let!(:contacts) { create_list(:contact, 10, created_by: user.id) }
   let(:contact_id) { contacts.first.id }
@@ -12,7 +12,7 @@ RSpec.describe 'Contacts API', type: :request do
   # Test suite for GET /contacts
   describe 'GET /contacts' do
     # make HTTP get request before each example
-    before { get '/contacts', params: {}, headers: headers }
+    before { get '/api/contacts', params: {}, headers: headers }
 
     it 'returns contacts' do
       # Note `json` is a custom helper to parse JSON responses
@@ -27,7 +27,7 @@ RSpec.describe 'Contacts API', type: :request do
 
   # Test suite for GET /contacts/:id
   describe 'GET /contacts/:id' do
-    before { get "/contacts/#{contact_id}", params: {}, headers: headers }
+    before { get "/api/contacts/#{contact_id}", params: {}, headers: headers }
 
     context 'when the record exists' do
       it 'returns the contact' do
@@ -59,7 +59,7 @@ RSpec.describe 'Contacts API', type: :request do
     let(:valid_attributes) { { email: 'email@email.com', created_by: user.id.to_s, address: '1 hey streey' } }
 
     context 'when the request is valid' do
-      before { post '/contacts', params: valid_attributes.to_json, headers: headers }
+      before { post '/api/contacts', params: valid_attributes.to_json, headers: headers }
 
       it 'creates a contact' do
         expect(json['email']).to eq('email@email.com')
@@ -72,7 +72,7 @@ RSpec.describe 'Contacts API', type: :request do
 
     context 'when the request is invalid' do
       let(:invalid_attributes) { { email: nil }.to_json }
-      before { post '/contacts', params: invalid_attributes, headers: headers }
+      before { post '/api/contacts', params: invalid_attributes, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -90,7 +90,7 @@ RSpec.describe 'Contacts API', type: :request do
     let(:valid_attributes) { { email: 'email@email.com' } }
 
     context 'when the record exists' do
-      before { put "/contacts/#{contact_id}", params: valid_attributes.to_json, headers: headers }
+      before { put "/api/contacts/#{contact_id}", params: valid_attributes.to_json, headers: headers }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -104,7 +104,7 @@ RSpec.describe 'Contacts API', type: :request do
 
   # Test suite for DELETE /contacts/:id
   describe 'DELETE /contacts/:id' do
-    before { delete "/contacts/#{contact_id}", params: {}, headers: headers }
+    before { delete "/api/contacts/#{contact_id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

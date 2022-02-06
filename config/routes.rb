@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  resources :contacts
-  post 'api/users/signin', to: 'authentication#authenticate'
-  post 'api/users/signup', to: 'users#create'
+  
+  scope :api do
+    post 'user/signin', to: 'authentication#authenticate'
+    post 'user/signup', to: 'users#create'
+    resources :contacts do 
+      member do
+        patch '/star', to: 'contacts#star_contact'
+      end
+      collection do
+        get 'starred-contacts', to: 'contacts#starred'
+      end
+    end
+  end
 end
