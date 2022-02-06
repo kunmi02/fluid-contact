@@ -1,5 +1,11 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize_request, only: :create
+  skip_before_action :authorize_request, only: %i[create home]
+
+  # homepage
+  def home
+    response = 'Welcome to fluid contact repo'
+    render json: response
+  end
 
   # POST /signup
   # return authenticated token upon signup

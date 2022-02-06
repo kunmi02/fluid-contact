@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  
+  root to: 'users#home'
   scope :api do
     post 'user/signin', to: 'authentication#authenticate'
     post 'user/signup', to: 'users#create'
