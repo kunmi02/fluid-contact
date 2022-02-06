@@ -35,13 +35,9 @@ RSpec.describe 'Authentication', type: :request do
 
     # returns failure message when request is invalid
     context 'When request is invalid' do
-      # before { post '/api/users/signin', params: invalid_credentials, headers: headers }
+      before { post '/api/users/signin', params: invalid_credentials, headers: headers }
       it 'returns a failure message' do
-        expect do
-          post '/api/users/signin', params: invalid_credentials,
-                                    headers: headers
-        end.to raise_error(ExceptionHandler::AuthenticationError, Message.invalid_credentials)
-        # expect(json['message']).to match(/Invalid credentials/)
+        expect(json['message']).to match(/Invalid credentials/)
       end
     end
   end
