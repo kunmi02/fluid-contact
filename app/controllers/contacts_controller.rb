@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  before_action :set_contact, only: [:show, :update, :destroy]
+  before_action :set_contact, only: %i[show update destroy]
 
   # GET /todos
   def index
@@ -44,5 +44,4 @@ class ContactsController < ApplicationController
   def set_contact
     @contact = Contact.find(params[:id])
   end
-
 end
