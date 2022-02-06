@@ -9,8 +9,26 @@
 
 ## Live Demo
 
-https://sleepy-everglades-08408.herokuapp.com/
+[BASE_URL] https://blooming-springs-72487.herokuapp.com/api/
 
+# End points 
+API routes for users to create accounts and login to the application
+- POST: /user/signup
+Username, Password & Email Address
+- POST: /api/user/signin
+Username & Password
+An API route that allow users create contact:
+- POST: /api/contact
+An API route that allow a logged in user read all contacts created by them:
+- GET: /api/contact
+An API route that allow a logged in user read a single contact detail created by them:
+- GET: /api/contact/<contact id>
+An API route that allows a logged in user edit a single contact detail:
+- PATCH: /api/contact/<contact id>
+An API route that allows a logged in user delete a single contact detail:
+- DELETE: /api/contact/<contact id>
+An API route that allows a logged in user star a single contact:
+- PATCH: /api/contact/<contact id>/star
 
 ## Getting Started
 
